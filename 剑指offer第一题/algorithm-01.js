@@ -6,27 +6,66 @@
  * 对于A长度为1的情况，B无意义，故而无法构建，因此该情况不会存在。
  */
 
-function multiply(array)
+ // 解法一
+function multiply1(array)
 {
-    var bArr = [];
-    var left = [];
-    var right = [];
-    for (var i=0; i<array.length; i++){
-        bArr[i] = 1;
-        for (var j=0; j<array.length; j++){
-            if (i===j){continue}
-            bArr[i] *= array[j]
-        }
-    }
-    return bArr;
+  var bArr = [];
+  var left = [];
+  var right = [];
+  for (var i=0; i<array.length; i++){
+      bArr[i] = 1; //bArr初始化为1
+      for (var j=0; j<array.length; j++){
+          if (i===j){continue}
+          bArr[i] *= array[j]
+      }
+  }
+  return bArr;
 }
 
-
-/**
- * 解释：
- * 我看网上一直有小伙伴在问为什么要初始化bArr[i] = 1，请看题目的描述。
- * 按照描述，我们将数组写下来：
- *
+ // <<<<<===================  解释  ===================>>>>>
+ /**
+    我看网上一直有小伙伴在问为什么要初始化bArr[i] = 1，请看题目的描述。
+    按照描述，我们将数组写下来：
+    B[0] = 1 * A[1] * A[2]* ... *A[n-1];
+    B[1] = A[0] * 1 * A[2]* ... *A[n-1];
+    B[2] = A[0] * A[1] * 1 * A[3]* ... *A[n-1];
+    B[3] = A[0] * A[1] * A[2] * 1 * A[4]* ... *A[n-1];
+    B[4] = A[0] * A[1] * A[2] * A[3] * 1 * A[5]* ... *A[n-1];
+    ...
+    ...
+    ...
+    可以看出：
+    1.bArr初始化为1的规律；
+    2.当i = j的时候为1；
  */
 
+// 解法二
+function multiply2(arr) {
+  let result = [1];
+  let temp = 1;
+  for (let i=0; i<arr.length-1; i++) {
+    result[i+1] = result[i] * arr[i];
+  }
+  for (let j=arr.length-1; j>0; j--) {
+    temp = temp * arr[j];
+    result[j-1] = result[j-1] * temp;
+  }
+  return result;
+}
 
+// <<<<<===================  解释  ===================>>>>>
+ /**
+    按照描述，我们将数组写下来：
+    B[0] = 1 * A[1] * A[2]* ... *A[n-1];
+    B[1] = A[0] * 1 * A[2]* ... *A[n-1];
+    B[2] = A[0] * A[1] * 1 * A[3]* ... *A[n-1];
+    B[3] = A[0] * A[1] * A[2] * 1 * A[4]* ... *A[n-1];
+    B[4] = A[0] * A[1] * A[2] * A[3] * 1 * A[5]* ... *A[n-1];
+    ...
+    ...
+    ...
+    可以将数组分为左右2部分：
+    左边：left[i] = A[0]* ...*A[i-1];
+    右边：right[i] = A[i+1]*...*A[n-1]; 这里倒过来看，就是上面第二层循环
+    那么最终的数组B[i] = left[i] * right[i];
+ */
