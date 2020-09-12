@@ -4,22 +4,20 @@
  */
 
  // 解法一
-function add1(num1, num2) {
-  if(num1 > 0) {
-    while(num1-- !== 0) {
-      num2++;
+ function Add(num1, num2)
+ {
+    while(num2){
+      let t = num1 ^ num2;
+      num2 = (num1 & num2) << 1;
+      num1 = t;
     }
-  } else if (num2 < 0) {
-    while(num1++ !== 0) {
-      num2--;
-    }
-  }
-  return num2;
-}
+    return num1;
+ }
 
 // <<<<<===================  解释  ===================>>>>>
 /**
- * 使用自加自减实现加法运算。
+ * 1.不进位的相加；
+ * 2. 同1则进位；
  */
 
 
