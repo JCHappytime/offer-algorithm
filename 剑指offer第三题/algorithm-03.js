@@ -18,7 +18,7 @@ function fabonacci(n) {
     递归解法也比较好理解，但是递归方式非常耗时，会导致内存和时间都超出限制。
  */
 
- // 解法一
+ // 解法二
 function fabonacci(n) {
   let arr = [1, 1];
   if (n === 1 || n === 2) {
