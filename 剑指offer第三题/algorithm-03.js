@@ -4,4 +4,10 @@
  * n<=39
  */
 
-
+// 解法一
+function fabonacci(n) {
+  if (n === 0 || n === 1) {
+  return n;
+  }
+  return this.fabonacci(n-1) + this.fabonacci(n-2);
+  }
