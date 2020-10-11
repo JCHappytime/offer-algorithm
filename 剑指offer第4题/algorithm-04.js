@@ -4,4 +4,12 @@
  * 从根结点到叶结点依次经过的结点（含根、叶结点）形成树的一条路径，最长路径的长度为树的深度。
  */
 
-
+// 解法一
+function TreeDepth(pRoot) {
+  if (pRoot === null) {
+    return 0;
+  }
+  let left = TreeDepth(pRoot.left);
+  let right = TreeDepth(pRoot.right);
+  return Math.max(left, right) + 1;
+}
